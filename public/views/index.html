@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="omdbApp">
+
+<head>
+  <script src="./vendors/angular.min.js" charset="utf-8"></script>
+  <script src="./vendors/angular-route.min.js" charset="utf-8"></script>
+  <script src="./scripts/ngMovies.js" charset="utf-8"></script>
+  <script src="./scripts/searchFlicka.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="./vendors/bootstrap.css">
+  <link rel="stylesheet" href="./vendors/bootstrap.min.css">
+  <script src="./vendors/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./vendors/sweetalert.css">
+  <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="utf-8">
+  <title> Movie App </title>
+  <style>
+    .poster {
+      float: left;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div ng-controller="CinemaController as mov" class="container">
+
+    <div class="jumbotron jumbotron-billboard">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Movie Index</h1>
+                <p>
+                    Favorite Movies
+                </p>
+                <table class="table table-striped">
+                  <tbody>
+                    <tr ng-repeat="movie in favoriteMovies">
+                      <td>{{movie.Title}}</td>
+                      <td>{{movie.Year}}</td>
+                      <td>{{movie.Rating}}</td>
+                      <td>{{movie.Genre}}</td>
+                      <td>
+                        <img src="{{movie.Poster}}" width="50" /> {{movie.Plot}}
+                      </td>
+                      <td>
+                        <button ng-click="mov.removeFavoriteMovie(movie)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a href="#" class="btn btn-success btn-lg">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <h2>Search movies</h2>
+
+
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" ng-model="mov.searchByTitle" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+       <button class="btn btn-secondary" type="button" ng-click="mov.searchMovies(mov.searchByTitle)" >Go!</button>
+     </span>
+
+      </div>
+    </div>
+    <!--End Input Button Group -->
+
+    <table class="table table-striped">
+
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Year</th>
+          <th>Rating</th>
+          <th>Plot</th>
+          <th>&nbsp;</th>
+        </tr>
+        <tr>
+          <th><input ng-model="mov.Title" class="form-control" type="text" name="movie" placeholder="movie title" /></th>
+          <th><input ng-model="mov.Year" class="form-control" type="text" name="movie" placeholder="year" /></th>
+          <th><input ng-model="mov.Rating" class="form-control" type="text" name="movie" placeholder="rating" /></th>
+          <th><input ng-model="mov.Plot" class="form-control" type="text" name="movie" placeholder="plot" /></th>
+          <th>
+            <button ng-click="mov.updateMovie()" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span>
+    </button>
+            <button ng-click="mov.addMovie()" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="movie in mov.result">
+          <td>{{movie.Title}}</td>
+          <td>{{movie.Year}}</td>
+          <td>{{movie.imdbID}}</td>
+          <td>
+            <img class="poster" ng-src="{{movie.Poster}}" width="50" />
+          </td>
+          <td><button ng-click="mov.selectMovie(movie)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button ng-click="mov.removeMovie(movie)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" onClick="swal('you gon delete this?');"></span></button>
+            <button ng-click="mov.addToFavorties(movie)" class="btn btn-info"><span class="glyphicon glyphicon-star" onClick="swal('add to favorites list?');"></span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- End Second div controller -->
+</body>
+
+</html>
