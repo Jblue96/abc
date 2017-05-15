@@ -69,8 +69,10 @@
 
       </div>
     </div>
-    <!--End Input Button Group -->
+    <!--End Search feature -->
 
+
+<!-- Movie Output Table -->
     <table class="table table-striped">
 
       <thead>
@@ -78,41 +80,40 @@
           <th>Title</th>
           <th>Year</th>
           <th>Rating</th>
-          <th>Plot</th>
+          <th>Poster</th>
           <th>&nbsp;</th>
         </tr>
-        <tr>
+        <tr> <!-- Start table row -->
           <th><input ng-model="mov.Title" class="form-control" type="text" name="movie" placeholder="movie title" /></th>
           <th><input ng-model="mov.Year" class="form-control" type="text" name="movie" placeholder="year" /></th>
           <th><input ng-model="mov.Rating" class="form-control" type="text" name="movie" placeholder="rating" /></th>
-          <th><input ng-model="mov.Plot" class="form-control" type="text" name="movie" placeholder="plot" /></th>
-          <th>
+          <th><input ng-model="mov.Poster" class="form-control" type="text" name="movie" placeholder="poster" /></th>
+          <th> <!-- Begin createMovie() + updateMovie()-->
             <button ng-click="mov.updateMovie()" class="btn btn-primary">
-        <span class="glyphicon glyphicon-ok"></span>
-    </button>
-            <button ng-click="mov.addMovie()" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span>
-    </button>
-          </th>
-        </tr>
+            <span class="glyphicon glyphicon-ok"></span>
+            </button>
+            <button ng-click="mov.createMovie()" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </th>  <!-- End createMovie() + updateMovie()-->
+        </tr> <!-- End Table Row-->
       </thead>
       <tbody>
-        <tr ng-repeat="movie in mov.result">
+        <tr ng-repeat="movie in mov.result"> <!-- Begin Table Row-->
           <td>{{movie.Title}}</td>
           <td>{{movie.Year}}</td>
           <td>{{movie.imdbID}}</td>
+          <td><img class="poster" ng-src="{{movie.Poster}}" width="50"/></td>
           <td>
-            <img class="poster" ng-src="{{movie.Poster}}" width="50" />
+            <button ng-click="mov.selectMovie(movie)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button ng-click="mov.removeMovie(movie)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" onClick="swal('delete this?');"></span></button>
+            <button ng-click="mov.addToFavorites()" class="btn btn-info"><span class="glyphicon glyphicon-star" onClick="swal('add to favorites?');"></span></button>
           </td>
-          <td><button ng-click="mov.selectMovie(movie)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-            <button ng-click="mov.removeMovie(movie)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" onClick="swal('you gon delete this?');"></span></button>
-            <button ng-click="mov.addToFavorties(movie)" class="btn btn-info"><span class="glyphicon glyphicon-star" onClick="swal('add to favorites list?');"></span></button>
-          </td>
-        </tr>
+       </tr> <!-- End Table Row-->
       </tbody>
     </table>
-  </div>
-  <!-- End Second div controller -->
+    <!-- End Output Table -->
+  </div> <!-- End CinemaController Div -->
 </body>
 
 </html>

@@ -6,7 +6,7 @@ omdbApp.config(function($routeProvider){});
 
 //set up a controller
 omdbApp.controller( 'CinemaController',function($http, SearchingForMovie){
-    console.log('holla!!holla!!');
+    console.log('hit CinemaController');
 var vm = this;
 // vm.items = [];
 
@@ -30,14 +30,15 @@ vm.searchMovies = function(flickas) {
   vm.addToFavorites = function (Title, Poster, Year){
     console.log('favorite button clicked');
     var objectToSend = {
-      title: movie.Title,
-      poster: movie.Poster,
-      year: movie.Year
+      title: vm.movie.Title,
+      imdbID: vm.movie.imdbID,
+      year: vm.movie.Year,
+      plot: vm.movie.Poster
     };// objecyToSend
     console.log('objectToSend>>>', ObjectToSend);
     $http({
       method: 'POST',
-      url: '/addMovie',
+      url: '/createMovie',
       data: ObjectToSend
     }).then(function(response){
       console.log('back from server:', response);
@@ -62,11 +63,11 @@ vm.searchMovies = function(flickas) {
 
   vm.movies = movies;
 
-  vm.addMovie = function()
+  vm.createMovie = function()
   {
   alert(vm.movie);
   var newMovie = {
-    Title: movie.Title,
+    Title: vm.movie.Title,
     rating: vm.movie.Rating,
     year: vm.movie.Year,
     plot: vm.movie.Plot,
